@@ -17,7 +17,7 @@ Then start the app:
 ## Get all books
 Locate to your browser and visit this URL:
 
-[localhost:5000/]()
+[get all the books](htttp://localhost:5000/)
 
 ## Get books by isbn
 
