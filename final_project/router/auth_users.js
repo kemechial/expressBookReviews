@@ -69,19 +69,21 @@ regd_users.put("/auth/review/:isbn", (req, res) => {
   //Write your code here
   
   const isbn = req.params.isbn;
-  let reviews = books[isbn];
+  let book = books[isbn];
+  let reviews = book['reviews']; 
   const review = decodeURIComponent(req.query.review);
 
   reviews[req.session.authorization.username] = review; 
-  res.status(200).json(reviews);
+  res.status(200).json(book);
 });
 
 regd_users.delete("/auth/review/:isbn", (req, res) => {
      const isbn = req.params.isbn;
-     let reviews = books[isbn];
+     let book = books[isbn];
+     let reviews = book['reviews']; 
      if(reviews[req.session.authorization.username]){
         delete reviews[req.session.authorization.username];
-        res.status(200).json(reviews);
+        res.status(200).json(book);
      }else{
         res.send("No reviews to delete...");
      }
