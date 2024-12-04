@@ -17,18 +17,21 @@ Then start the app:
 ## Get all books
 Locate to your browser and visit this URL:
 
-[get all the books](htttp://localhost:5000/)
+[http://localhost:5000/]()
+
+![Books]()
 
 ## Get books by isbn
 
 Locate to your browser and visit this URL by adding the desired isbn:
 
-[localhost:5000/isbn/{isbn}]()
+[http://localhost:5000/isbn/{isbn}]()
 
 ## Get books by title
 
 Locate to your browser and visit this URL by adding the desired title:
 
-[localhost:5000/title/{title}]()
+[http://localhost:5000/title/{title}]()
+
 
 
