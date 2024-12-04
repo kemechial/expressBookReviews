@@ -3,7 +3,7 @@ let books = require("./booksdb.js");
 let isValid = require("./auth_users.js").isValid;
 let users = require("./auth_users.js").users;
 const public_users = express.Router();
-
+const axios = require('axios');
 
 // Check if a user with the given username already exists
 const doesExist = (username) => {
@@ -39,47 +39,60 @@ public_users.post("/register", (req,res) => {
 
 });
 
+const getBooks = () => {return new Promise((resolve, reject) =>  resolve(books))}
+
 // Get the book list available in the shop
-public_users.get('/',function (req, res) {
-  //Write your code here
-   res.send(JSON.stringify(books, null, 4));
+public_users.get('/', function (req, res) {
+    getBooks() 
+    .then(books => { res.send(JSON.stringify(books, null, 4));  })
+     .catch(err => { res.status(500).send('Failed to fetch books'); });  
 });
 
 // Get book details based on ISBN
 public_users.get('/isbn/:isbn',function (req, res) {
-  //Write your code here
-     // Extract the lastName parameter from the request URL
+    getBooks() 
+    .then( books => {
+      // Extract the lastName parameter from the request URL
     const isbn = req.params.isbn;
     // Filter the users array to find users whose lastName matches the extracted lastName parameter
     let filtered_book = books[isbn];
     // Send the filtered_lastname array as the response to the client
-    res.send(filtered_book);
- });
-  
+    res.status(200).send(filtered_book);
+    })
+     .catch(err => { res.status(500).send('Failed to fetch book'); });  
+});
+
+ 
 // Get book details based on author
 public_users.get('/author/:author',function (req, res) {
-  // Extract the lastName parameter from the request URL
-    const author = req.params.author;  
-    matched_books = [];
-      Object.values(books).forEach(book =>{
-        if (book.author == author){
-             matched_books.push(book);
-        }
-      });
-      if(matched_books.length > 0){
-        res.status(200).send(
-            JSON.stringify(matched_books, null, 4)
-        );
-      } else {
-        res.send("The author was not found!");  
-      }
-      
-    });
+    getBooks() 
+    .then( books => {
+        const author = req.params.author;  
+        matched_books = [];
+          Object.values(books).forEach(book =>{
+            if (book.author == author){
+                 matched_books.push(book);
+            }
+          });
+          if(matched_books.length > 0){
+            res.status(200).send(
+                JSON.stringify(matched_books, null, 4)
+            );
+          } else {
+            res.status(404).send("The author was not found!");  
+          }
+    })
+     .catch(err => { res.status(500).send('Failed to fetch data'); });  
+});
+
+
 // Get all books based on title
-public_users.get('/title/:title',function (req, res) {
+public_users.get('/title/:title',function (req, res) {   
+    getBooks() 
+    .then( books => {
     const title = req.params.title; 
     matched_books = [];
-      Object.values(books).forEach(book =>{
+    Object.values(books).forEach(book =>{
         if (book.title == title){
              matched_books.push(book);
         }
@@ -90,8 +103,8 @@ public_users.get('/title/:title',function (req, res) {
         );
       } else {
         res.send("The title was not found!");  
-      }
-});
+      } }).catch(err => { res.status(500).send('Failed to fetch data'); });  
+    }); 
 
 //  Get book review
 public_users.get('/review/:isbn',function (req, res) {
