@@ -27,6 +27,7 @@ Locate to your browser and visit this URL by adding the desired isbn:
 
 [http://localhost:5000/isbn/{isbn}]()
 
+
 ![ISBN](https://github.com/kemechial/expressBookReviews/blob/main/2-gedetailsISBN.png)
 
 ## Get books by title
@@ -35,21 +36,42 @@ Locate to your browser and visit this URL by adding the desired title:
 
 [http://localhost:5000/title/{title}]()
 
+
 ![Title](https://github.com/kemechial/expressBookReviews/blob/main/4-getbooksbytitle.png)
 
 ## Get books by author
 
-Locate to your browser and visit this URL by adding the desired title:
+Locate to your browser and visit this URL by adding the desired author:
 
 [http://localhost:5000/author/{author}]()
 
-![Title](https://github.com/kemechial/expressBookReviews/blob/main/3-getbooksbyauthor.png))
+![Author](https://github.com/kemechial/expressBookReviews/blob/main/3-getbooksbyauthor.png)
+
+## Get Book Reviews
+
+Locate to your browser and visit this URL by adding the isbn of desired book:
+
+[http://localhost:5000/review/{isbn}]()
+
+
+![Reviews](https://github.com/kemechial/expressBookReviews/blob/main/5-getbookreview.png)
 
 # Authorized Routes
 
 General data can be seen by all the users. Only registered users can alter data. Registration is done by sending a JSON body to **/register** with **POST** method. 
 
-If a user wants to add a review to a book or delete his review, he first logs in at **/custom/login** by posting his credentials in JSON format.
+**Only** users can add or delete reviews. If a user wants to add a review to a book or delete his review, he first logs in at **/customer/login** by posting his credentials in JSON format.
+
+Reviews are added or updated by sending a **PUT** request to **/customer/auth/{isbn}/review?review={...}** with review as query in URL. a **DELETE** request to **/customer/auth/{isbn}/review** deletes the review of the logged in user.
+
+
+![Add Review](https://github.com/kemechial/expressBookReviews/blob/main/8-reviewadded.png)
+
+---
+
+![Delete Review](https://github.com/kemechial/expressBookReviews/blob/main/9-deletereview.png)
+
+
 
 
 
