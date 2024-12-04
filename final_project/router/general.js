@@ -29,10 +29,23 @@ public_users.get('/isbn/:isbn',function (req, res) {
   
 // Get book details based on author
 public_users.get('/author/:author',function (req, res) {
-  //Write your code here
-  return res.status(300).json({message: "Yet to be implemented"});
-});
-
+  // Extract the lastName parameter from the request URL
+    const author = req.params.author;  
+    matched_books = [];
+      Object.values(books).forEach(book =>{
+        if (book.author == author){
+             matched_books.push(book);
+        }
+      });
+      if(matched_books.length > 0){
+        res.status(200).send(
+            JSON.stringify(matched_books, null, 4)
+        );
+      } else {
+        res.send("The author was not found!");  
+      }
+      
+    });
 // Get all books based on title
 public_users.get('/title/:title',function (req, res) {
   //Write your code here
