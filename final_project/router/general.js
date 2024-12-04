@@ -68,6 +68,9 @@ public_users.get('/title/:title',function (req, res) {
 public_users.get('/review/:isbn',function (req, res) {
        // Extract the lastName parameter from the request URL
        const isbn = req.params.isbn;
+       if(!Object.keys(books).includes(isbn)){
+          return res.status(404).send("isbn not found!");
+       }
        // Filter the users array to find users whose lastName matches the extracted lastName parameter
        let filtered_book = books[isbn];
        res.send(filtered_book['reviews']);
