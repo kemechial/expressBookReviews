@@ -62,7 +62,7 @@ General data can be seen by all the users. Only registered users can alter data.
 
 **Only registered users** can add or delete reviews. If a user wants to add a review to a book or delete his review, he first logs in at **/customer/login** by posting his credentials in JSON format.
 
-Reviews are added or updated by sending a **PUT** request to **/customer/auth/{isbn}/review?review={...}** with review as query in URL. a **DELETE** request to **/customer/auth/review/{isbn}** deletes the review of the logged in user.
+Reviews are added or updated by sending a **PUT** request to **/customer/auth/review/{isbn}?review={...}** with review as query in URL. a **DELETE** request to **/customer/auth/review/{isbn}** deletes the review of the logged in user.
 
 
 ![Add Review](https://github.com/kemechial/expressBookReviews/blob/main/8-reviewadded.png)
